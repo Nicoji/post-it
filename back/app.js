@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const postitRoute = require('./routes/postit');
 const mongoose = require('mongoose');
-const { route } = require('./routes/postit');
 
 mongoose.connect('mongodb+srv://mongoAdmin:Password1@cluster0.i2hcd.mongodb.net/test?retryWrites=true&w=majority',
 { useNewUrlParser: true,
