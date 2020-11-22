@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const postitSchema = mongoose.Schema({
     title: {
-        type: String,
+        type: String, 
         required: true
     }, 
     content: {
