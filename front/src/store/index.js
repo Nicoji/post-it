@@ -8,6 +8,7 @@ export default new Vuex.Store({
     postitList: []
   },
   mutations: {
+
     GET_VALUES(state) {
       fetch('http://localhost:3000/')
         .then(reponse => reponse.json())
@@ -16,33 +17,35 @@ export default new Vuex.Store({
           for(let i = 0; i < data.length; i++) {
             state.postitList.push(data[i]);
           }
-          console.log(state.postitList);
+        })
+        .catch((error) => {
+          console.log(error);
         })
     }, 
-    CREATE_POSTIT(state) {
+
+    CREATE_POSTIT() {
       let value = {
         title: 'New liste', 
         content: ['+ Add note'], 
-        color: 'blue'
       }
-      console.log(state);
-      value = JSON.stringify(value);
-      fetch('http://localhost:3000/', 
-        {method: 'POST', 
-          body: value, 
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-          },
-          })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-        });
 
-        setTimeout(() => {
+      value = JSON.stringify(value);
+      
+      fetch('http://localhost:3000/', 
+        {
+          method: 'POST', 
+          headers: {'Content-Type': 'application/json;charset=utf-8'},
+          body: value
+        }
+      )
+        .then(() => {
           this.commit('GET_VALUES');
-        }, 50);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     },
+
     ADD_POSTIT(state, id) {
       fetch('http://localhost:3000/note/'+id)
         .then(response => response.json())
@@ -50,23 +53,24 @@ export default new Vuex.Store({
 
           data.content.push('+ Add note');
           let json = JSON.stringify(data);
-        //   let note = data[Object.keys(data)[0]];
-
-        //   data[Object.keys(data)[0]].content.push('+ Add note');
-
-        //   var noteJson = JSON.stringify(note);
+       
           fetch('http://localhost:3000/note/' + id, 
-          {method: 'PUT', 
-            body: json, 
-            headers: {'Content-Type': 'application/json;charset=utf-8'}})
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-          }) 
+            {
+              method: 'PUT', 
+              headers: {'Content-Type': 'application/json;charset=utf-8'},
+              body: json
+            }
+          )
+            .then(() => {
+              this.commit('GET_VALUES');
+            }) 
+            .catch((error) => {
+              console.log(error);
+            })
         })
-        setTimeout(() => {
-          this.commit('GET_VALUES');
-        }, 50);
+        .catch((error) => {
+          console.log(error);
+        })
     },
     UPDATE(state, playload) {
 
@@ -83,14 +87,11 @@ export default new Vuex.Store({
               break;
             case 'note':
               newValue = document.querySelector('#note-block' + playload.id + ' #textArea'+playload.index);
-              console.log(newValue);
-              
-              console.log(data.content[playload.index]);
               data.content[playload.index] = newValue.value;
               break;
             case 'titleDialog':
               newValue = document.querySelector('#h2_'+playload.id);
-              data.title =  newValue.value;
+              data.title = newValue.value;
               break;
             case 'noteDialog':
               newValue = document.querySelector('#textAreaDialog'+playload.index);
@@ -103,42 +104,43 @@ export default new Vuex.Store({
                 newValue = document.querySelector('#textAreaDialog'+playload.index);
                 data.content[playload.index] = '+ Add note';
               }
-              break;
           }
          
           var noteJson = JSON.stringify(data);
           
           fetch('http://localhost:3000/note/' + playload.id, 
-          {method: 'PUT', 
-            body: noteJson, 
-            headers: {'Content-Type': 'application/json'}})
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
+            {
+              method: 'PUT', 
+              headers: {'Content-Type': 'application/json'},
+              body: noteJson
+            }
+          )
+          .then(() => {
+            this.commit('GET_VALUES');
           }) 
+          .catch((error) => {
+            console.log(error);
+          })
         })
-          
-        setTimeout(() => {
-          this.commit('GET_VALUES');
-        }, 50);
     }, 
+
     DELETE(state, playload) {
       let confirmation = confirm('Are you you want to delete the postit \'' + playload.name + '\' ?');
 
       if(confirmation) {
         fetch('http://localhost:3000/note/' + playload.id, 
-        {method: 'DELETE', 
-          headers: {'Content-Type': 'application/json;charset=utf-8'}})
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-        }) 
-
-        setTimeout(() => {
+          {
+            method: 'DELETE', 
+            headers: {'Content-Type': 'application/json;charset=utf-8'}
+          }
+        )
+        .then(() => {
           this.commit('GET_VALUES');
-        }, 50);
+        }) 
+        .catch((error) => {
+          console.log(error);
+        })
       }
-
     }
   },
   actions: {

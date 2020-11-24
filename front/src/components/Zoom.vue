@@ -30,6 +30,8 @@ export default {
                 zoomSign.style.height = "120px";
                 zoomSign.style.width = "120px";
                 zoomSign.style.padding = "30px";
+                zoomSign.style.bottom = "40px";
+                zoomSign.style.right = "40px";
                 zoomIn.setAttribute('width', '4em');
                 zoomIn.setAttribute('height', '4em');
 
@@ -42,14 +44,14 @@ export default {
         }
     }
 }
-console.log(window.navigator);
+console.log(window.navigator); // Adaptez le zoom en fonction des navigateurs !
 </script>
 
 <style>
     .zoom-sign {
         position: fixed;
-        bottom: 1.5%;
-        left: 94%;
+        bottom: 20px;
+        right: 20px;
         padding: 15px;
         border-radius: 50%;
         background-color: rgb(0, 0, 0);

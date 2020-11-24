@@ -75,7 +75,7 @@ export default {
 
 
 <style>
-    .list-note {
+    body {
         overflow-x: scroll;
     }
     .note-block {
@@ -113,14 +113,6 @@ export default {
     h2 {
         text-align: left;
     }
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .list-note::-webkit-scrollbar {
-        display: none;
-    }
-    /* Hide scrollbar for IE, Edge and Firefox */
-    .list-note {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-    }
+    
 
 </style>

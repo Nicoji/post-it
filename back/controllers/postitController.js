@@ -17,19 +17,19 @@ exports.addPostit = (req, res, next) => {
         ...req.body
     });
     postit.save()
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+    .then(() => res.status(201).json())
     .catch(error => res.status(400).json({ error }));
 };
 
 //  Si ca marche pas, regarder le cours OPC, y'a un truc que j'ai pas mis
 exports.updatePostit = (req, res, next) => {
     Postit.updateOne({_id: req.params.id}, {...req.body, _id: req.params.id})
-        .then(() => res.status(200).json()({message: 'Objet modifié !'}))
+        .then(() => res.status(200).json())
         .catch(error => res.status(400).json({ error }));
 };
 
 exports.deletePostit = (req, res, next) => {
     Postit.deleteOne({_id: req.params.id})
-        .then(() => res.status(200).json()({message: 'Objet supprimé !'}))
+        .then(() => res.status(200).json())
         .catch(error => res.status(400).json({ error }));
 };
