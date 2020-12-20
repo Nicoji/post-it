@@ -10,7 +10,7 @@ export default new Vuex.Store({
   mutations: {
 
     GET_VALUES(state) {
-      fetch('http://localhost:3000/')
+      fetch('http://nicolasmaillet.ddns.net:3000/')
         .then(reponse => reponse.json())
         .then(data => {
           state.postitList = [];
@@ -31,7 +31,7 @@ export default new Vuex.Store({
 
       value = JSON.stringify(value);
       
-      fetch('http://localhost:3000/', 
+      fetch('http://nicolasmaillet.ddns.net:3000/', 
         {
           method: 'POST', 
           headers: {'Content-Type': 'application/json;charset=utf-8'},
@@ -47,14 +47,14 @@ export default new Vuex.Store({
     },
 
     ADD_POSTIT(state, id) {
-      fetch('http://localhost:3000/note/'+id)
+      fetch('http://nicolasmaillet.ddns.net:3000/note/'+id)
         .then(response => response.json())
         .then(data => {
 
           data.content.push('+ Add note');
           let json = JSON.stringify(data);
        
-          fetch('http://localhost:3000/note/' + id, 
+          fetch('http://nicolasmaillet.ddns.net:3000/note/' + id, 
             {
               method: 'PUT', 
               headers: {'Content-Type': 'application/json;charset=utf-8'},
@@ -74,7 +74,7 @@ export default new Vuex.Store({
     },
     UPDATE(state, playload) {
 
-      fetch('http://localhost:3000/note/'+playload.id)
+      fetch('http://nicolasmaillet.ddns.net:3000/note/'+playload.id)
         .then(res => res.json())
         .then(data => {
     
@@ -108,7 +108,7 @@ export default new Vuex.Store({
          
           var noteJson = JSON.stringify(data);
           
-          fetch('http://localhost:3000/note/' + playload.id, 
+          fetch('http://nicolasmaillet.ddns.net:3000/note/' + playload.id, 
             {
               method: 'PUT', 
               headers: {'Content-Type': 'application/json'},
@@ -128,7 +128,7 @@ export default new Vuex.Store({
       let confirmation = confirm('Are you you want to delete the postit \'' + playload.name + '\' ?');
 
       if(confirmation) {
-        fetch('http://localhost:3000/note/' + playload.id, 
+        fetch('http://nicolasmaillet.ddns.net:3000/note/' + playload.id, 
           {
             method: 'DELETE', 
             headers: {'Content-Type': 'application/json;charset=utf-8'}

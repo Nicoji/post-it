@@ -24,7 +24,9 @@ export default {
             const zoomOut = document.querySelector('#zoom-out');
 
             if(zoomIn.classList.contains('hide')) {
-                document.body.style.zoom = "50%";
+                document.body.classList.remove('zoom-in');
+                document.body.classList.add('zoom-out');
+                // document.body.style.zoom = "50%";
                 zoomOut.classList.add('hide');
                 zoomIn.classList.remove('hide');
                 zoomSign.style.height = "120px";
@@ -36,7 +38,9 @@ export default {
                 zoomIn.setAttribute('height', '4em');
 
             } else {
-                document.body.style.zoom = "100%";
+                document.body.classList.remove('zoom-out');
+                document.body.classList.add('zoom-in');
+                // document.body.style.zoom = "100%";
                 zoomIn.classList.add('hide');
                 zoomOut.classList.remove('hide');
                 zoomSign.removeAttribute('style');
@@ -44,7 +48,6 @@ export default {
         }
     }
 }
-console.log(window.navigator); // Adaptez le zoom en fonction des navigateurs !
 </script>
 
 <style>
@@ -62,5 +65,11 @@ console.log(window.navigator); // Adaptez le zoom en fonction des navigateurs !
     }
     .hide {
         display: none;
+    }
+    .zoom-out {
+        zoom: 50%;
+    }
+    .zoom-in {
+        zoom: 100%;
     }
 </style>
