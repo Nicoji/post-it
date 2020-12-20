@@ -58,6 +58,7 @@ console.log(window.navigator); // Adaptez le zoom en fonction des navigateurs !
         cursor: pointer;
         height: 60px;
         width: 60px;
+        z-index: 998;
     }
     .hide {
         display: none;

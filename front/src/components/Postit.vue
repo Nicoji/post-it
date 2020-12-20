@@ -58,7 +58,7 @@ export default {
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
-        z-index: 998;
+        z-index: 997;
     }
     dialog {
         width: 550px;
@@ -66,6 +66,8 @@ export default {
         z-index: 999;
         border-radius: 10px;
         margin-top: 70px;
+        background-color: rgb(80, 80, 80);
+        border: 2px solid white;
     }
     .dialogNote {
         padding: 10px;

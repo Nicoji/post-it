@@ -3,12 +3,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const postitRoute = require('./routes/postit');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect('mongodb+srv://mongoAdmin:Password1@cluster0.i2hcd.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@cluster0.i2hcd.mongodb.net/'+ process.env.DB_NAME +'?retryWrites=true&w=majority',
 { useNewUrlParser: true,
   useUnifiedTopology: true })
-.then(() => console.log('Connexion à MongoDB réussie !'))
-.catch(() => console.log('Connexion à MongoDB échouée !'));
+.then(() => console.log('Connexion réussie !'))
+.catch(() => console.log('Connexion échouée !'));
 
 
 app.use((req, res, next) => {

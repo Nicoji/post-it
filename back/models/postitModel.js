@@ -9,9 +9,6 @@ const postitSchema = mongoose.Schema({
         type: Array,
         required: true
     }, 
-    color: {
-        type: String
-    }
 })
 
 module.exports = mongoose.model('Postit', postitSchema);

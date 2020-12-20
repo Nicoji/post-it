@@ -6,12 +6,20 @@ import { mapState } from 'vuex'
 
 export default {
     name: 'PostitList',
+    data() {
+        return {
+            loaded: false
+        }
+    },
     methods: {
-        
         textAreaResize: function(block, textArea) {
-            const element = document.querySelector('#' + block + ' #' + textArea);
+            setTimeout(function() {
+               
+            const element = document.querySelector('#'+block + ' #' + textArea);
             element.style.height = '1px';
             element.style.height = (10 + element.scrollHeight) + 'px';
+            }, 500)
+            
         }, 
     },
     components: {
@@ -20,10 +28,7 @@ export default {
     }, 
     mounted() {
         this.$store.commit('GET_VALUES');
-        // this.textAreaResize();
-        // setInterval(() => {
-        //     this.$store.commit('GET_VALUES');
-        // }, 1000);
+        this.loaded  = true;
     }, 
 
     computed: {
@@ -52,6 +57,9 @@ export default {
                         </div>  
                         <div v-for="(entry, index) in note.content" :key="index">
                             <textarea class="note" :id="'textArea'+index" :value="entry" v-on:change="$store.commit('UPDATE', {id: note._id, element: 'note', index: index})" v-on:keyup="textAreaResize('note-block' + note._id, 'textArea' + index)"></textarea>
+                            <span v-if="loaded">
+                                {{textAreaResize('note-block' + note._id, 'textArea' + index)}}
+                            </span>
                         </div>
                         <button v-on:click="$store.commit('ADD_POSTIT', note._id)" class="btn btn-primary">Add a new Entry</button>
                     </div>
@@ -66,6 +74,8 @@ export default {
                 </div>
             </div>
             <div class="add align-self-start mt-3" v-on:click="$store.commit('CREATE_POSTIT')">
+                <!-- <span class="d-none"> {{loaded = false}} </span> -->
+
                 <div class="add-text">+ Add new note</div>
             </div>
             <Zoom/>
